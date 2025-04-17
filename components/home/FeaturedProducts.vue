@@ -39,7 +39,7 @@
                                         <icon name="ph:shopping-cart" />
                                     </div>
                                 </button>
-                                <NuxtLink :to="`/produtos/${item.id}`"
+                                <NuxtLink :to="`/products/${item.id}`"
                                     class="flex items-center bg-primary-system p-4 rounded-xl hover:border-primary hover:text-primary">
                                     <icon name="ph:eye" />
                                 </NuxtLink>
@@ -50,8 +50,9 @@
             </div>
 
             <div class="w-1/3 flex flex-col gap-6">
-                <div v-for="product in featuredProducts.slice(2, 4)" :key="product.id"
-                    class="border border-zinc-300 rounded-xl p-6 flex items-center gap-8">
+                <NuxtLink v-for="product in featuredProducts.slice(2, 4)" :key="product.id"
+                    :to="`/products/${product.id}`"
+                    class="border border-zinc-300 rounded-xl p-6 flex items-center gap-8 hover:shadow-md transition-shadow duration-300">
                     <NuxtImg :src="product.images[0]" :alt="product.title" class="h-48 object-contain mb-4" />
                     <div class="flex flex-col">
                         <h3 class="text-xl font-bold text-blue-900 mb-2">{{ product.title }}</h3>
@@ -66,7 +67,7 @@
                             </template>
                         </div>
                     </div>
-                </div>
+                </NuxtLink>
             </div>
         </div>
     </section>

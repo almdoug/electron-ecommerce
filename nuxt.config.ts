@@ -5,9 +5,9 @@ export default defineNuxtConfig({
     head: {
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
-      title: 'Electon - Loja de Eletrônicos',
+      title: 'Electon - Electronics Store',
       meta: [
-        { name: 'description', content: 'Electon - A melhor loja de eletrônicos com preços imbatíveis. Compre smartphones, laptops, câmeras e mais!' },
+        { name: 'description', content: 'Electon - The best electronics store with unbeatable prices. Buy smartphones, laptops, cameras and more!' },
         { name: 'theme-color', content: '#EEA40B' }
       ],
       link: [
@@ -42,8 +42,8 @@ export default defineNuxtConfig({
       crawlLinks: true,
       routes: [
         '/',
-        '/categorias',
-        '/produtos',
+        '/categories',
+        '/products',
         '/blog'
       ]
     }
@@ -51,9 +51,9 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       siteUrl: 'https://electon.com.br',
-      siteName: 'Electon - Loja de Eletrônicos',
-      siteDescription: 'Electon - A melhor loja de eletrônicos com preços imbatíveis. Compre smartphones, laptops, câmeras e mais!',
-      language: 'pt-BR',
+      siteName: 'Electon - Electronics Store',
+      siteDescription: 'Electon - The best electronics store with unbeatable prices. Buy smartphones, laptops, cameras and more!',
+      language: 'en-US',
     }
   }
 })

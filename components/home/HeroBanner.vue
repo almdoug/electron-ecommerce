@@ -7,11 +7,11 @@
           <div class="max-w-md">
             <h1 class="text-3xl font-bold text-blue-900 mb-4">{{ item.title }}</h1>
             <div class="flex gap-4 mb-6">
-              <NuxtLink :to="`/produtos/${item.id}`"
+              <NuxtLink :to="`/products/${item.id}`"
                 class="bg-secondary hover:bg-orange-400 text-white px-6 py-2 rounded-xl">
                 Shop now
               </NuxtLink>
-              <NuxtLink :to="`/produtos/${item.id}`"
+              <NuxtLink :to="`/products/${item.id}`"
                 class="border border-primary text-primary hover:border-secondary hover:text-secondary px-6 py-2 rounded-xl">
                 View more
               </NuxtLink>

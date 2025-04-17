@@ -7,14 +7,14 @@
         :class="isFavorite(product.id) ? 'text-primary' : ''" />
     </button>
     <div class="mb-4 p-4">
-      <NuxtLink :to="`/produtos/${product.id}`">
+      <NuxtLink :to="`/products/${product.id}`">
         <NuxtImg :src="product.images[0]" :alt="product.title" class="w-full h-48 object-contain" />
       </NuxtLink>
     </div>
     <div class="space-y-2 relative">
       <div class="transition-opacity duration-300 group-hover:opacity-0">
         <h3 class="font-medium text-gray-700">
-          <NuxtLink :to="`/produtos/${product.id}`" class="hover:text-secondary">
+          <NuxtLink :to="`/products/${product.id}`" class="hover:text-secondary">
             {{ product.title }}
           </NuxtLink>
         </h3>
@@ -39,7 +39,7 @@
             <icon name="ph:shopping-cart" />
           </div>
         </button>
-        <NuxtLink :to="`/produtos/${product.id}`"
+        <NuxtLink :to="`/products/${product.id}`"
           class="flex items-center bg-primary-system p-4 rounded-xl hover:border-primary hover:text-primary">
           <icon name="ph:eye" />
         </NuxtLink>
@@ -68,7 +68,7 @@ const { success } = useNotification();
 
 const addToCart = () => {
   addProductToCart(props.product);
-  success(`Produto ${props.product.title} adicionado ao carrinho!`);
+  success(`Product "${props.product.title}" added to cart!`);
 };
 
 const toggleFavorite = () => {

@@ -1,8 +1,29 @@
-import { ref, computed } from 'vue';
+import { ref, computed, watch, onMounted } from 'vue';
 import type { Product, CartItem } from '~/types';
 
 export const useCart = () => {
   const cart = ref<CartItem[]>([]);
+
+  // Carregar itens do carrinho do localStorage
+  onMounted(() => {
+    if (typeof window !== 'undefined') {
+      const savedCart = localStorage.getItem('cart');
+      if (savedCart) {
+        try {
+          cart.value = JSON.parse(savedCart);
+        } catch (error) {
+          console.error('Failed to parse cart from localStorage:', error);
+        }
+      }
+    }
+  });
+
+  // Salvar carrinho no localStorage quando for atualizado
+  watch(cart, (newCart) => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('cart', JSON.stringify(newCart));
+    }
+  }, { deep: true });
 
   // Obter o número total de itens no carrinho
   const cartItemCount = computed(() => {

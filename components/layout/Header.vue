@@ -32,13 +32,17 @@
           </div>
 
           <div class="flex-1 max-w-xl ml-20">
-            <div class="relative grid grid-cols-4">
-              <input type="text" placeholder="Search any things"
-                class="col-span-3 bg-white w-full px-4 py-2 border border-gray-300 rounded-l-xl focus:outline-none placeholder:text-zinc-800" />
-              <button class="absolute right-0 top-0 h-full bg-secondary text-white px-4 rounded-xl">
+            <form @submit.prevent="navigateToProducts" class="relative grid grid-cols-4">
+              <input 
+                v-model="searchQuery"
+                type="text" 
+                placeholder="Search any things"
+                class="col-span-3 bg-white w-full px-4 py-2 border border-gray-300 rounded-l-xl focus:outline-none placeholder:text-zinc-800" 
+              />
+              <button type="submit" class="absolute right-0 top-0 h-full bg-secondary text-white px-4 rounded-xl">
                 Search
               </button>
-            </div>
+            </form>
           </div>
         </div>
 
@@ -48,12 +52,12 @@
             <span>Sign in</span>
           </NuxtLink>
 
-          <NuxtLink to="/registro" class="flex items-center hover:text-secondary">
+          <NuxtLink to="/favorites" class="flex items-center hover:text-secondary">
             <icon name="ph:heart" class="mr-1" size="24" />
-            <span>Sign in</span>
+            <span>Favorites</span>
           </NuxtLink>
 
-          <NuxtLink to="/carrinho" class="flex items-center hover:text-secondary relative">
+          <NuxtLink to="/cart" class="flex items-center hover:text-secondary relative">
             <icon name="ph:shopping-cart" size="24" />
             <span v-if="cartItemCount > 0"
               class="absolute -top-2 -right-2 bg-secondary text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">{{
@@ -68,7 +72,7 @@
       <div class="flex justify-between items-center container mx-auto px-4">
         <ul class="flex">
           <li class="py-4 mr-20 px-4 bg-secondary text-white cursor-pointer">
-            <NuxtLink to="/categorias" class="flex items-center gap-2">Browse categories
+            <NuxtLink to="/categories" class="flex items-center gap-2">Browse categories
               <icon name="lucide:chevron-down" class="mr-2" />
             </NuxtLink>
           </li>
@@ -78,7 +82,7 @@
             </NuxtLink>
           </li>
           <li class="py-4 px-4 hover:bg-secondary hover:text-white cursor-pointer">
-            <NuxtLink to="/catalogo" class="flex items-center gap-2">Catalog
+            <NuxtLink to="/products" class="flex items-center gap-2">Catalog
               <icon name="lucide:chevron-down" class="mr-2" />
             </NuxtLink>
           </li>
@@ -86,12 +90,12 @@
             <NuxtLink to="/blog">Blog</NuxtLink>
           </li>
           <li class="py-4 px-4 hover:bg-secondary hover:text-white cursor-pointer">
-            <NuxtLink to="/paginas" class="flex items-center gap-2">Pages
+            <NuxtLink to="/pages" class="flex items-center gap-2">Pages
               <icon name="lucide:chevron-down" class="mr-2" />
             </NuxtLink>
           </li>
           <li class="py-4 px-4 hover:bg-secondary hover:text-white cursor-pointer">
-            <NuxtLink to="/sobre-nos">About us</NuxtLink>
+            <NuxtLink to="/about-us">About us</NuxtLink>
           </li>
         </ul>
         <span class="font-bold text-primary">30 Days Free Return</span>
@@ -102,6 +106,20 @@
 
 <script setup>
 import { useCart } from '~/composables/useCart';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const { cartItemCount } = useCart();
+const searchQuery = ref('');
+
+const navigateToProducts = () => {
+  if (searchQuery.value.trim()) {
+    router.push({
+      path: '/products',
+      query: { search: searchQuery.value }
+    });
+  } else {
+    router.push('/products');
+  }
+};
 </script>
