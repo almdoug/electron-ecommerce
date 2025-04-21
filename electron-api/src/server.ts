@@ -1,5 +1,6 @@
 import { fastify } from 'fastify';
 import { userRoutes } from './modules/user/user.route';
+import { addressRoutes } from './modules/address/address.route';
 import swagger from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
 import cors from '@fastify/cors';
@@ -50,6 +51,7 @@ server.decorate(
 // Registrar as rotas
 async function registerRoutes() {
   server.register(userRoutes, { prefix: 'api/users' });
+  server.register(addressRoutes, { prefix: 'api/addresses' });
 
   // Saúde
   server.get('/health', async () => {
