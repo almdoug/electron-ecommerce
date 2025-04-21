@@ -1,54 +1,62 @@
 import { z } from 'zod';
+import { buildJsonSchemas } from 'fastify-zod';
 
 // Esquema para adicionar item ao carrinho
-export const addToCartSchema = z.object({
-  body: z.object({
-    productId: z.string().uuid({ message: 'ID do produto inválido' }),
-    quantity: z.number().int().positive().default(1)
-  })
+const addToCartSchema = z.object({
+  productId: z.string().uuid({ message: 'ID do produto inválido' }),
+  quantity: z.number().int().min(1, { message: 'A quantidade deve ser pelo menos 1' }).default(1)
 });
 
 // Esquema para atualizar item do carrinho
-export const updateCartItemSchema = z.object({
-  params: z.object({
-    itemId: z.string().uuid({ message: 'ID do item inválido' })
+const updateCartItemSchema = z.object({
+  quantity: z.number().int().min(1, { message: 'A quantidade deve ser pelo menos 1' })
+});
+
+// Esquema para parâmetros de ID do item
+const cartItemIdSchema = z.object({
+  itemId: z.string().uuid({ message: 'ID do item inválido' })
+});
+
+// Esquema de resposta para item do carrinho
+const cartItemResponseSchema = z.object({
+  id: z.string(),
+  product: z.object({
+    id: z.string(),
+    title: z.string(),
+    price: z.number(),
+    discountedPrice: z.number().nullable(),
+    images: z.array(z.object({
+      url: z.string()
+    }))
   }),
-  body: z.object({
-    quantity: z.number().int().positive({ message: 'A quantidade deve ser um número positivo' })
-  })
+  quantity: z.number(),
+  price: z.number(),
+  subtotal: z.number()
 });
 
-// Esquema para remover item do carrinho
-export const removeCartItemSchema = z.object({
-  params: z.object({
-    itemId: z.string().uuid({ message: 'ID do item inválido' })
-  })
+// Esquema de resposta para o carrinho completo
+const cartResponseSchema = z.object({
+  id: z.string(),
+  items: z.array(cartItemResponseSchema),
+  total: z.number(),
+  createdAt: z.string().or(z.date()),
+  updatedAt: z.string().or(z.date())
 });
 
-// Tipo para resposta de item do carrinho
-export type CartItemResponse = {
-  id: string;
-  product: {
-    id: string;
-    title: string;
-    price: number;
-    discountedPrice: number | null;
-    images: { url: string }[];
-  };
-  quantity: number;
-  price: number;
-  subtotal: number;
-};
+// Tipos de entrada para as operações
+export type AddToCartInput = z.infer<typeof addToCartSchema>;
+export type UpdateCartItemInput = z.infer<typeof updateCartItemSchema>;
+export type CartItemIdParam = z.infer<typeof cartItemIdSchema>;
 
-// Tipo para resposta do carrinho completo
-export type CartResponse = {
-  id: string;
-  items: CartItemResponse[];
-  total: number;
-  createdAt: Date;
-  updatedAt: Date;
-};
+// Tipos para as respostas
+export type CartItemResponse = z.infer<typeof cartItemResponseSchema>;
+export type CartResponse = z.infer<typeof cartResponseSchema>;
 
-export type AddToCartInput = z.infer<typeof addToCartSchema>['body'];
-export type UpdateCartItemInput = z.infer<typeof updateCartItemSchema>['body'];
-export type CartItemIdParam = z.infer<typeof removeCartItemSchema>['params']; 
+// Construir schemas JSON para Fastify
+export const { schemas: cartSchemas, $ref } = buildJsonSchemas({
+  addToCartSchema,
+  updateCartItemSchema,
+  cartItemIdSchema,
+  cartItemResponseSchema,
+  cartResponseSchema
+}, { $id: 'cartSchemas' }); 
