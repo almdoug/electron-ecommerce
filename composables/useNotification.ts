@@ -14,7 +14,7 @@ export const useNotification = () => {
   let nextId = 0;
 
   /**
-   * Adiciona uma nova notificação
+   * Add a new notification
    */
   const add = (message: string, type: NotificationType = 'info', duration = 3000) => {
     const id = nextId++;
@@ -37,7 +37,7 @@ export const useNotification = () => {
   };
 
   /**
-   * Remove uma notificação pelo ID
+   * Remove a notification by ID
    */
   const remove = (id: number) => {
     const index = notifications.value.findIndex(n => n.id === id);
@@ -47,35 +47,35 @@ export const useNotification = () => {
   };
 
   /**
-   * Adiciona uma notificação de sucesso
+   * Add a success notification
    */
   const success = (message: string, duration = 3000) => {
     return add(message, 'success', duration);
   };
 
   /**
-   * Adiciona uma notificação de erro
+   * Add an error notification
    */
   const error = (message: string, duration = 3000) => {
     return add(message, 'error', duration);
   };
 
   /**
-   * Adiciona uma notificação de aviso
+   * Add a warning notification
    */
   const warning = (message: string, duration = 3000) => {
     return add(message, 'warning', duration);
   };
 
   /**
-   * Adiciona uma notificação informativa
+   * Add an info notification
    */
   const info = (message: string, duration = 3000) => {
     return add(message, 'info', duration);
   };
 
   /**
-   * Remove todas as notificações
+   * Clear all notifications
    */
   const clear = () => {
     notifications.value = [];

@@ -105,11 +105,12 @@
 </template>
 
 <script setup>
+import { watch, computed } from 'vue';
 import { useCart } from '~/composables/useCart';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
-const { cartItemCount } = useCart();
+const { cart, cartItemCount } = useCart();
 const searchQuery = ref('');
 
 const navigateToProducts = () => {

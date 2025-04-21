@@ -10,7 +10,7 @@
           <h2 class="text-3xl font-extrabold text-primary-system mb-4">Sale up to 50% off</h2>
           <p class="mb-6 text-gray-300">12 inch hd display</p>
           <NuxtLink to="/promocoes"
-            class="bg-secondary hover:border-secondary text-white px-6 py-2 rounded-xl inline-block">
+            class="bg-secondary hover:bg-orange-400 text-white px-6 py-2 rounded-xl inline-block">
             Shop now
           </NuxtLink>
         </div>

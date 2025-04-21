@@ -1,0 +1,36 @@
+{
+  "name": "electron-api",
+  "version": "1.0.0",
+  "description": "API Backend para o E-commerce Electron",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "rimraf ./dist && tsc",
+    "start": "node dist/server.js",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:studio": "prisma studio"
+  },
+  "keywords": ["e-commerce", "api", "fastify", "prisma"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fastify/cors": "^8.3.0",
+    "@fastify/jwt": "^7.2.1",
+    "@fastify/swagger": "^8.9.0",
+    "@fastify/swagger-ui": "^1.9.3",
+    "@prisma/client": "^5.3.1",
+    "bcryptjs": "^2.4.3",
+    "fastify": "^4.23.2",
+    "fastify-zod": "^1.4.0",
+    "zod": "^3.22.2"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.4",
+    "@types/node": "^20.6.3",
+    "prisma": "^5.3.1",
+    "rimraf": "^5.0.1",
+    "tsx": "^3.12.10",
+    "typescript": "^5.2.2"
+  }
+} 

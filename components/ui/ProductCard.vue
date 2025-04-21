@@ -33,10 +33,11 @@
         class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2">
         <button
           class="bg-primary-system hover:border-secondary text-zinc-800 py-2 rounded-xl flex-grow flex items-center justify-center"
-          @click="addToCart">
-          Add to cart
+          @click="addToCart"
+          :class="{'bg-green-100': isAdded}">
+          {{ isAdded ? 'Added' : 'Add to cart' }}
           <div class="flex items-center justify-center p-2 rounded-full bg-secondary ml-3 text-white">
-            <icon name="ph:shopping-cart" />
+            <icon :name="isAdded ? 'ph:check' : 'ph:shopping-cart'" />
           </div>
         </button>
         <NuxtLink :to="`/products/${product.id}`"
@@ -49,7 +50,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 import type { Product } from '~/types';
 import { useCart } from '~/composables/useCart';
 import { usePrice } from '~/composables/usePrice';
@@ -66,9 +66,17 @@ const { formatPrice, getDisplayPrice } = usePrice();
 const { isFavorite, toggleFavorite: toggleProductFavorite } = useFavorites();
 const { success } = useNotification();
 
+const isAdded = ref(false);
+
 const addToCart = () => {
   addProductToCart(props.product);
   success(`Product "${props.product.title}" added to cart!`);
+  
+  // Visual feedback: change button text temporarily
+  isAdded.value = true;
+  setTimeout(() => {
+    isAdded.value = false;
+  }, 2000);
 };
 
 const toggleFavorite = () => {

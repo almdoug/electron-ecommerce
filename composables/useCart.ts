@@ -1,8 +1,8 @@
-import { ref, computed, watch, onMounted } from 'vue';
 import type { Product, CartItem } from '~/types';
 
 export const useCart = () => {
-  const cart = ref<CartItem[]>([]);
+
+  const cart = shallowRef<CartItem[]>([]);
 
   // Carregar itens do carrinho do localStorage
   onMounted(() => {
@@ -44,8 +44,10 @@ export const useCart = () => {
 
     if (existingItem) {
       existingItem.quantity += quantity;
+      // Create a new array to ensure reactivity
+      cart.value = [...cart.value];
     } else {
-      cart.value.push({ product, quantity });
+      cart.value = [...cart.value, { product, quantity }];
     }
   };
 
@@ -53,7 +55,9 @@ export const useCart = () => {
   const removeFromCart = (productId: number) => {
     const index = cart.value.findIndex(item => item.product.id === productId);
     if (index !== -1) {
-      cart.value.splice(index, 1);
+      const newCart = [...cart.value];
+      newCart.splice(index, 1);
+      cart.value = newCart;
     }
   };
 
@@ -61,10 +65,12 @@ export const useCart = () => {
   const updateQuantity = (productId: number, quantity: number) => {
     const item = cart.value.find(item => item.product.id === productId);
     if (item) {
-      item.quantity = quantity;
-      // Se a quantidade for 0 ou negativa, remove o item
       if (quantity <= 0) {
         removeFromCart(productId);
+      } else {
+        item.quantity = quantity;
+        // Create a new array to ensure reactivity
+        cart.value = [...cart.value];
       }
     }
   };

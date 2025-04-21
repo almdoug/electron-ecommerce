@@ -121,6 +121,11 @@
                             <span class="font-semibold">{{ formatPrice(cartTotal) }}</span>
                         </div>
 
+                        <div v-if="discount > 0" class="flex justify-between mb-4 text-green-600 bg-green-50 p-2 rounded">
+                            <span>Discount (10%)</span>
+                            <span class="font-semibold">-{{ formatPrice(discount) }}</span>
+                        </div>
+
                         <!-- Coupon Form -->
                         <div class="flex mt-4">
                             <input
@@ -128,12 +133,14 @@
                                 v-model="couponCode"
                                 placeholder="Enter coupon code"
                                 class="flex-grow border border-gray-300 rounded-l-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-primary"
+                                :class="{'border-green-500 bg-green-50': couponApplied}"
                             />
                             <button
                                 @click="applyCoupon"
                                 class="bg-primary text-white px-4 py-2 rounded-r-lg hover:bg-primary-dark"
+                                :class="{'bg-green-500': couponApplied}"
                             >
-                                Apply
+                                {{ couponApplied ? 'Applied' : 'Apply' }}
                             </button>
                         </div>
                     </div>
@@ -188,7 +195,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
 import { useCart } from '~/composables/useCart';
 import { usePrice } from '~/composables/usePrice';
 import { useNotification } from '~/composables/useNotification';
@@ -205,6 +211,8 @@ const { success, error } = useNotification();
 // Coupon and discounts
 const couponCode = ref('');
 const discount = ref(0);
+const couponApplied = ref(false);
+
 const applyCoupon = () => {
     if (couponCode.value.trim() === '') {
         error('Please enter a coupon code');
@@ -213,8 +221,10 @@ const applyCoupon = () => {
 
     if (couponCode.value.toLowerCase() === 'discount10') {
         discount.value = cartTotal.value * 0.1;
+        couponApplied.value = true;
         success('Coupon applied successfully!');
     } else {
+        couponApplied.value = false;
         error('Invalid coupon code');
     }
 };

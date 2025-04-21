@@ -1,8 +1,8 @@
 <template>
-  <div class="fixed top-4 right-4 z-50 w-80 space-y-2">
+  <div class="fixed top-4 right-4 z-[1000] w-80 space-y-2">
     <TransitionGroup name="notification">
       <div v-for="notification in notifications" :key="notification.id"
-        class="flex items-center justify-between p-4 rounded-lg shadow-md"
+        class="flex items-center justify-between p-4 rounded-lg shadow-lg"
         :class="getNotificationClass(notification.type)">
         <div class="flex items-center">
           <div class="mr-3">
@@ -26,14 +26,14 @@ const { notifications, remove } = useNotification();
 const getNotificationClass = (type: NotificationType): string => {
   switch (type) {
     case 'success':
-      return 'bg-green-100 text-green-800';
+      return 'bg-green-100 text-green-800 border-l-4 border-green-500';
     case 'error':
-      return 'bg-red-100 text-red-800';
+      return 'bg-red-100 text-red-800 border-l-4 border-red-500';
     case 'warning':
-      return 'bg-yellow-100 text-yellow-800';
+      return 'bg-yellow-100 text-yellow-800 border-l-4 border-yellow-500';
     case 'info':
     default:
-      return 'bg-blue-100 text-blue-800';
+      return 'bg-blue-100 text-blue-800 border-l-4 border-blue-500';
   }
 };
 
