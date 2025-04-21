@@ -4,6 +4,7 @@ import { addressRoutes } from './modules/address/address.route';
 import { productRoutes } from './modules/product/product.route';
 import { cartRoutes } from './modules/cart/cart.route';
 import { orderRoutes } from './modules/order/order.route';
+import { shippingRoutes } from './modules/shipping/shipping.route';
 import swagger from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
 import cors from '@fastify/cors';
@@ -58,6 +59,7 @@ async function registerRoutes() {
   server.register(productRoutes, { prefix: 'api/products' });
   server.register(cartRoutes, { prefix: 'api/cart' });
   server.register(orderRoutes, { prefix: 'api/orders' });
+  server.register(shippingRoutes, { prefix: 'api/shipping' });
 
   // Saúde
   server.get('/health', async () => {

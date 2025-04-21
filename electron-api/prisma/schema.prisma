@@ -141,6 +141,22 @@ model CartItem {
   @@map("cart_items")
 }
 
+// Regra de frete grátis
+model FreeShippingRule {
+  id                String               @id @default(uuid())
+  name              String
+  description       String?
+  minOrderValue     Decimal              @db.Decimal(10, 2)
+  regions           String[]             // Lista de estados aplicáveis, vazio = todos
+  productCategories String[]             // Lista de categorias aplicáveis, vazio = todas
+  serviceTypes      ShippingServiceType[] // Tipos de serviço aplicáveis, vazio = todos
+  active            Boolean              @default(true)
+  createdAt         DateTime             @default(now())
+  updatedAt         DateTime             @updatedAt
+
+  @@map("free_shipping_rules")
+}
+
 // Enums
 enum UserRole {
   ADMIN
@@ -159,4 +175,11 @@ enum PaymentMethod {
   CREDIT_CARD
   BOLETO
   PIX
+}
+
+enum ShippingServiceType {
+  PAC
+  SEDEX
+  SEDEX_10
+  PICK_UP
 } 
