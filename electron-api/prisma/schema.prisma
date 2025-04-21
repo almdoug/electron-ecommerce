@@ -92,6 +92,7 @@ model Order {
   shippingCost    Decimal       @db.Decimal(10, 2) @default(0)
   paymentMethod   PaymentMethod
   paymentIntentId String?
+  payment         Payment?
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
 
@@ -141,6 +142,24 @@ model CartItem {
   @@map("cart_items")
 }
 
+// Pagamento
+model Payment {
+  id                String          @id @default(uuid())
+  orderId           String          @unique
+  order             Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  amount            Decimal         @db.Decimal(10, 2)
+  paymentMethod     PaymentMethod
+  status            PaymentStatus   @default(PENDING)
+  stripePaymentId   String?
+  stripeClientSecret String?
+  receiptUrl        String?
+  errorMessage      String?
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+
+  @@map("payments")
+}
+
 // Regra de frete grátis
 model FreeShippingRule {
   id                String               @id @default(uuid())
@@ -175,6 +194,15 @@ enum PaymentMethod {
   CREDIT_CARD
   BOLETO
   PIX
+}
+
+enum PaymentStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+  REFUNDED
+  CANCELED
 }
 
 enum ShippingServiceType {
