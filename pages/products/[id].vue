@@ -212,7 +212,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
 import StarRating from '~/components/ui/StarRating.vue';
 import ProductCard from '~/components/ui/ProductCard.vue';
 import { usePrice } from '~/composables/usePrice';

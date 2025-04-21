@@ -1,5 +1,3 @@
-import { ref } from 'vue';
-
 export type NotificationType = 'success' | 'error' | 'warning' | 'info';
 
 export interface Notification {

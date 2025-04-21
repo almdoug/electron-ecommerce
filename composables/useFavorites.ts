@@ -1,4 +1,3 @@
-import { ref, computed } from 'vue';
 import type { Product } from '~/types';
 
 export const useFavorites = () => {
