@@ -19,6 +19,7 @@ model User {
   role            UserRole  @default(CUSTOMER)
   addresses       Address[]
   orders          Order[]
+  cart            Cart?     
   refreshToken    String?
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
@@ -59,6 +60,7 @@ model Product {
   rating          Float          @default(0)
   featured        Boolean        @default(false)
   orderItems      OrderItem[]
+  cartItems       CartItem[]
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @updatedAt
 
@@ -109,6 +111,34 @@ model OrderItem {
   updatedAt   DateTime @updatedAt
 
   @@map("order_items")
+}
+
+// Carrinho de compras
+model Cart {
+  id        String     @id @default(uuid())
+  userId    String     @unique
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items     CartItem[]
+  total     Decimal    @db.Decimal(10, 2) @default(0)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@map("carts")
+}
+
+// Item do carrinho
+model CartItem {
+  id        String   @id @default(uuid())
+  cartId    String
+  cart      Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product  @relation(fields: [productId], references: [id])
+  quantity  Int
+  price     Decimal  @db.Decimal(10, 2)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("cart_items")
 }
 
 // Enums

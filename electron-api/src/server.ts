@@ -2,6 +2,7 @@ import { fastify } from 'fastify';
 import { userRoutes } from './modules/user/user.route';
 import { addressRoutes } from './modules/address/address.route';
 import { productRoutes } from './modules/product/product.route';
+import { cartRoutes } from './modules/cart/cart.route';
 import swagger from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
 import cors from '@fastify/cors';
@@ -54,6 +55,7 @@ async function registerRoutes() {
   server.register(userRoutes, { prefix: 'api/users' });
   server.register(addressRoutes, { prefix: 'api/addresses' });
   server.register(productRoutes, { prefix: 'api/products' });
+  server.register(cartRoutes, { prefix: 'api/cart' });
 
   // Saúde
   server.get('/health', async () => {
