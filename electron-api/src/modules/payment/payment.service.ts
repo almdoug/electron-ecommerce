@@ -1,8 +1,8 @@
-import { PrismaClient, PaymentMethod, PaymentStatus } from '@prisma/client';
+import { PaymentMethod, PaymentStatus } from '@prisma/client';
 import Stripe from 'stripe';
 import { CreatePaymentInput, ProcessPaymentInput, PaymentResponse, StripeIntentResponse } from './payment.schema';
+import { prisma } from '../../utils/prisma';
 
-const prisma = new PrismaClient();
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
   apiVersion: '2023-10-16' as any, // Use a versão disponível
 });

@@ -1,4 +1,3 @@
-import { PrismaClient } from '@prisma/client';
 import { 
   CalculateShippingInput, 
   ShippingCalculationResponse, 
@@ -9,8 +8,7 @@ import {
   ShippingServiceType
 } from './shipping.schema';
 import axios from 'axios';
-
-const prisma = new PrismaClient();
+import { prisma } from '../../utils/prisma';
 
 /**
  * Serviço responsável pelo cálculo de frete, integrações com APIs externas e gerenciamento

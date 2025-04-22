@@ -1,7 +1,6 @@
-import { PrismaClient, Address } from '@prisma/client';
+import { Address } from '@prisma/client';
 import { CreateAddressInput, UpdateAddressInput } from './address.schema';
-
-const prisma = new PrismaClient();
+import { prisma } from '../../utils/prisma';
 
 // Verifica se um endereço existe pelo ID e pertence ao usuário
 async function addressExists(id: string, userId: string): Promise<Address> {

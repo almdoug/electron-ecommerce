@@ -1,7 +1,6 @@
-import { PrismaClient, Product, ProductImage, Prisma } from '@prisma/client';
+import { Product, ProductImage, Prisma } from '@prisma/client';
 import { CreateProductInput, UpdateProductInput, UpdateStockInput, ProductFilterInput, UploadImageInput } from './product.schema';
-
-const prisma = new PrismaClient();
+import { prisma } from '../../utils/prisma';
 
 // Verifica se um produto existe pelo ID
 async function productExists(id: string): Promise<Product> {

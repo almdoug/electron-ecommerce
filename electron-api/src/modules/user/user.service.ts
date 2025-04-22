@@ -1,8 +1,7 @@
-import { PrismaClient, User } from '@prisma/client';
+import { User } from '@prisma/client';
 import { CreateUserInput, LoginInput, UpdateUserInput, UserResponse } from './user.schema';
 import { hash, compare } from 'bcryptjs';
-
-const prisma = new PrismaClient();
+import { prisma } from '../../utils/prisma';
 
 // Remove a senha do objeto de usuário
 function excludePassword(user: User): UserResponse {

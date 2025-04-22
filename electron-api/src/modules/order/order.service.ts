@@ -1,4 +1,4 @@
-import { PrismaClient, OrderStatus, Prisma } from '@prisma/client';
+import { OrderStatus, Prisma } from '@prisma/client';
 import { 
   CreateOrderInput, 
   OrderResponse, 
@@ -8,8 +8,7 @@ import {
   OrderItemResponse
 } from './order.schema';
 import { AppError } from '../../utils/AppError';
-
-const prisma = new PrismaClient();
+import { prisma } from '../../utils/prisma';
 
 /**
  * Cria um pedido a partir do carrinho do usuário

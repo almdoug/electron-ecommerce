@@ -1,8 +1,7 @@
-import { PrismaClient, Prisma } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import { AddToCartInput, CartItemResponse, CartResponse, UpdateCartItemInput } from './cart.schema';
 import { AppError } from '../../utils/AppError';
-
-const prisma = new PrismaClient();
+import { prisma } from '../../utils/prisma';
 
 /**
  * Obtém ou cria um carrinho para o usuário

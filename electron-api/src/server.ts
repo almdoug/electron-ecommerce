@@ -32,8 +32,21 @@ async function registerPlugins() {
     routePrefix: '/docs',
     uiConfig: {
       docExpansion: 'list',
-      deepLinking: false,
+      deepLinking: true,
+      displayRequestDuration: true,
+      defaultModelExpandDepth: 3,
+      defaultModelsExpandDepth: 2,
+      filter: true,
+      showExtensions: true,
+      showCommonExtensions: true,
+      syntaxHighlight: {
+        activate: true,
+        theme: 'monokai'
+      },
+      tryItOutEnabled: true
     },
+    staticCSP: true,
+    transformStaticCSP: (header) => header
   });
 }
 

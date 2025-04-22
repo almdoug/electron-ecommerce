@@ -25,7 +25,41 @@ export const swaggerOptions: SwaggerOptions = {
         type: 'apiKey',
         name: 'Authorization',
         in: 'header',
+        description: `
+Como obter seu token:
+          
+1. Faça uma requisição POST para /api/users/login com suas credenciais
+2. Copie o token retornado no campo "token"
+3. Insira o token no formato: Bearer {seu_token}
+4. Clique em "Authorize" para salvar
+
+Os tokens JWT expiram após 24 horas e precisam ser renovados.
+        `
       },
     },
-  },
+    definitions: {
+      ErrorResponse: {
+        type: 'object',
+        required: ['message', 'statusCode'],
+        properties: {
+          statusCode: {
+            type: 'integer',
+            format: 'int32',
+            example: 400,
+            description: 'Código HTTP do erro'
+          },
+          message: {
+            type: 'string',
+            example: 'Requisição inválida',
+            description: 'Mensagem explicativa do erro'
+          },
+          error: {
+            type: 'string',
+            example: 'BadRequest',
+            description: 'Tipo do erro (opcional)'
+          }
+        }
+      }
+    }
+  }
 }; 
